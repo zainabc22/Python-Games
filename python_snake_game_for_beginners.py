@@ -33,7 +33,7 @@ def move():
 
     if head.direction =="right":
         x = head.xcor()
-        head.setx(x+20) #move alogn on the x-axis
+        head.setx(x+20) #move along on the x-axis
 
     if head.direction =="left":
         x = head.xcor()
@@ -42,12 +42,34 @@ def move():
         #beginner friendly. - These functions could also be one line - head.sety(head.xcor()+20)
 
 
+#Functions to move the head
+def go_up():
+    head.direction = "up"
+
+def go_down():
+    head.direction = "down"
+
+def go_left():
+    head.direction = "left"
+
+def go_right():
+    head.direction = "right"
+
+
+
+#Keyboard actions - calling the functions to move the head
+window.listen() #telling the window to listen for key-clicks
+window.onkeypress(go_up, "w")
+window.onkeypress(go_down, "s")
+window.onkeypress(go_left, "a")
+window.onkeypress(go_right, "d")
+
 
 # Main game loop
 while True:
     window.update()
 
-    move() #calling the function 
+    move() #calling the function - four directions on the axises
     time.sleep(delay) #0.1 second - stops the program for 1/10th of a second 
 
     #up till here we have - screen 600 by 600 size, square snake and movement of the snake going up by 0.1 seconds. 
