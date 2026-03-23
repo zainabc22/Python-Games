@@ -5,12 +5,19 @@
 # 3. Segments
 # 4. Collision with border 
 # 5: Body Collisions 
+# 6: Scoring 
 
 import turtle
 import time 
 import random 
 
 delay = 0.12 #setting time otherwise snake is moving too fast off screen 
+
+#Score:
+score = 0
+high_score = 0
+#when does score increase?:
+#1. collision with food
 
 # Set up the screen
 window = turtle.Screen()
@@ -38,6 +45,18 @@ food.goto(0, 100)
 
 #create body for snake that grows as it eats food- list
 segments = []
+
+#Pen
+pen = turtle.Turtle()
+pen.speed(0)
+pen.shape("square")
+pen.color("white")
+pen.penup()
+pen.hideturtle()
+pen.goto(0,260)
+pen.write("Score: 0     High Score: 0", align = "center", font = ("Arial", 24, "normal"))
+
+
 
 
 #Functions #for the four directions 
@@ -101,6 +120,12 @@ while True:
         #clear segment list - not just hide them 
         segments.clear()
 
+        #Reset the score
+        score = 0
+
+        #Update the score display
+        pen.clear() #avoids generic score and high score = 0 text and actual score and high score overlap
+        pen.write("Score:  {}   High Score:   {}". format(score, high_score), align = "center", font = ("Arial", 24, "normal"))
 
 
     #check for collision with the food
@@ -117,6 +142,17 @@ while True:
         new_segment.color("grey")
         new_segment.penup()
         segments.append(new_segment) #append is a built in list method. Adds a single element to the end of an existing list. Here our list is segments. New_segment is being appended to Segment - allowing the body of the snake to "grow" in our game. 
+
+        #increase the score
+        score += 1
+
+        if score > high_score:
+            high_score = score
+
+        pen.clear() #avoids generic score and high score = 0 text and actual score and high score overlap
+        pen.write("Score:  {}   High Score:   {}". format(score, high_score), align = "center", font = ("Arial", 24, "normal"))
+
+
 
     #Moving the end segments first in reverse order
     for index in range(len(segments)-1, 0, -1):
@@ -140,7 +176,7 @@ while True:
         if segment.distance(head) < 20:
             time.sleep(1)
             head.goto(0,0)
-            head. direction = "stop"
+            head.direction = "stop"
 
             #Hide the segments:
             for segment in segments:  
@@ -148,6 +184,14 @@ while True:
 
             #clear segment list
             segments.clear()
+
+            #Reset the score
+            score = 0
+
+            #Update the score display
+            pen.clear() #avoids generic score and high score = 0 text and actual score and high score overlap
+            pen.write("Score:  {}   High Score:   {}". format(score, high_score), align = "center", font = ("Arial", 24, "normal"))
+
 
     time.sleep(delay) #0.1 second - stops the program for 1/10th of a second 
 
