@@ -38,8 +38,9 @@ head.direction = "stop"
 #Create Food
 food = turtle.Turtle()
 food.speed(0) #normal animation speed
-food.shape("triangle")
+food.shape("circle")
 food.color("red")
+food.shapesize(0.5)
 food.penup() #turtle was deisgned to draw lines when it moves, but we don't want that for our snake
 food.goto(0, 100)
 
