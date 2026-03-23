@@ -133,12 +133,29 @@ while True:
 
 
     move() #calling the function - four directions on the axises
+
+    #5 - check for head collision with the body segments
+    #if there is a collision with the segments, we sleep , go back to center, stop the head. hide all the segments and clear the segment list. 
+    for segment in segments:
+        if segment.distance(head) < 20:
+            time.sleep(1)
+            head.goto(0,0)
+            head. direction = "stop"
+
+            #Hide the segments:
+            for segment in segments:  
+                segment.goto(1000, 1000)
+
+            #clear segment list
+            segments.clear()
+
     time.sleep(delay) #0.1 second - stops the program for 1/10th of a second 
 
     #up till here we have - screen 600 by 600 size, square snake and movement of the snake going up by 0.1 seconds. 
 
 
 window.mainloop()
+
 
 #window.exitonclick() #allows the turtle pop up window to show up 
 
