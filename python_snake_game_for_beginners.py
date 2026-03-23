@@ -3,7 +3,8 @@
 # 1. Head
 # 2. Food
 # 3. Segments
-
+# 4. Collision with border 
+# 5: Body Collisions 
 
 import turtle
 import time 
@@ -30,7 +31,7 @@ head.direction = "stop"
 #Create Food
 food = turtle.Turtle()
 food.speed(0) #normal animation speed
-food.shape("circle")
+food.shape("triangle")
 food.color("red")
 food.penup() #turtle was deisgned to draw lines when it moves, but we don't want that for our snake
 food.goto(0, 100)
@@ -86,6 +87,21 @@ window.onkeypress(go_right, "d")
 # Main game loop
 while True:
     window.update()
+
+    # 4. Collision with boarder 
+    if head.xcor()>290 or head.xcor()<-290 or head.ycor()>290 or head.ycor()<-290:
+        time.sleep(1) #pauses game
+        head.goto(0,0)
+        head.direction = "stop"
+
+        #Hide the segments:
+        for segment in segments: #goes through list of segments 
+            segment.goto(1000, 1000)
+
+        #clear segment list - not just hide them 
+        segments.clear()
+
+
 
     #check for collision with the food
     if head.distance(food) < 20: #each of the basic turtle case is 20x20 so center is 10. If distance is less than 20 food and snake have collided 
